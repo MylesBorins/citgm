@@ -6,7 +6,10 @@ var rewire = require('rewire');
 var lookup = rewire('../lib/lookup');
 
 var makeUrl = lookup.__get__('makeUrl');
+var filterTags = lookup.__get__('filterTags');
 var getLookupTable = lookup.get;
+
+var sampleLookup = require('./fixtures/custom-lookup.json');
 
 test('lookup: makeUrl', function (t) {
   var repo = 'https://github.com/nodejs/citgm';
@@ -88,6 +91,16 @@ test('lookup[getLookupTable]: custom table that does not exist', function (t) {
   }
 
   t.notOk(table, 'it should return falsey if the table does not exist');
+  t.end();
+});
+
+test('lookup[filterTags]:', function (t) {
+  
+  
+  t.ok(table, 'table should exist');
+  t.ok(table.lodash, 'lodash should be in the table');
+  t.ok(table.lodash.replace, 'lodash should need to be replaced');
+
   t.end();
 });
 
