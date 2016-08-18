@@ -292,5 +292,9 @@
   "bson": {
     "replace": true,
     "prefix": "V"
+  },
+  "node-sass": {
+    "replace": true,
+    "prefix": "v"
   }
 }
