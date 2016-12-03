@@ -54,6 +54,12 @@ if (!lookup) {
   process.exit(1);
 }
 
+if (app.autoParallel) {
+  app.parallel = os.cpus().length;
+  log.info('cores', 'detected ' + app.parallel + ' cores on this system');
+}
+process.setMaxListeners(app.parallel + 1 || process.getMaxListeners());
+
 if (!citgm.windows) {
   var uidnumber = require('uid-number');
   var uid = app.uid || process.getuid();
@@ -97,10 +103,10 @@ function runCitgm (mod, name, next) {
     log[type](key, message);
   }).on('end', function(result) {
     if (result.error) {
-      log.error('done', 'The test suite for ' + result.name + ' version ' + result.version + ' failed');
+      log.error(result.name + ' done', 'done - the test suite for ' + result.name + ' version ' + result.version + ' failed');
     }
     else {
-      log.info('done', 'The test suite for ' + result.name + ' version ' + result.version + ' passed.');
+      log.info(result.name + ' done', 'done - the test suite for ' + result.name + ' version ' + result.version + ' passed.');
     }
     modules.push(result);
     if (!bailed) {
@@ -127,7 +133,7 @@ function filterLookup(result, value, key) {
 function launch() {
   var collection = _.reduce(lookup, filterLookup, []);
 
-  var q = async.queue(runTask, os.cpus().length || 1);
+  var q = async.queue(runTask, app.parallel || 1);
   q.push(collection);
   function done () {
     q.drain = null;
