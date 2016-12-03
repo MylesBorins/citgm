@@ -54,6 +54,11 @@ if (!lookup) {
   process.exit(1);
 }
 
+if (app.autoParallel) {
+  app.parallel = require('os').cpus().length;
+  log.info('cores', 'detected ' + app.parallel + ' cores on this system');
+}
+
 if (!citgm.windows) {
   var uidnumber = require('uid-number');
   var uid = app.uid || process.getuid();
@@ -83,11 +88,13 @@ function runCitgm (mod, name, next) {
     process.removeListener('SIGINT', cleanup);
     process.removeListener('SIGHUP', cleanup);
     process.removeListener('SIGBREAK', cleanup);
+    process.setMaxListeners(process.getMaxListeners() - app.parallel || process.getMaxListeners());
   }
 
   process.on('SIGINT', cleanup);
   process.on('SIGHUP', cleanup);
   process.on('SIGBREAK', cleanup);
+  process.setMaxListeners(process.getMaxListeners() + app.parallel || process.getMaxListeners());
 
   runner.on('start', function(name) {
     log.info('starting', name);
@@ -107,6 +114,7 @@ function runCitgm (mod, name, next) {
       process.removeListener('SIGINT', cleanup);
       process.removeListener('SIGHUP', cleanup);
       process.removeListener('SIGBREAK', cleanup);
+      process.setMaxListeners(process.getMaxListeners() - app.parallel || process.getMaxListeners());
     }
     return next(bailed);
   }).run();
@@ -127,7 +135,7 @@ function filterLookup(result, value, key) {
 function launch() {
   var collection = _.reduce(lookup, filterLookup, []);
 
-  var q = async.queue(runTask, os.cpus().length || 1);
+  var q = async.queue(runTask, app.parallel || 1);
   q.push(collection);
   function done () {
     q.drain = null;
@@ -160,6 +168,7 @@ function launch() {
     process.removeListener('SIGINT', abort);
     process.removeListener('SIGHUP', abort);
     process.removeListener('SIGBREAK', abort);
+    process.setMaxListeners(process.getMaxListeners() - app.parallel || process.getMaxListeners());
     done();
   }
 
@@ -168,4 +177,5 @@ function launch() {
   process.on('SIGINT', abort);
   process.on('SIGHUP', abort);
   process.on('SIGBREAK', abort);
+  process.setMaxListeners(process.getMaxListeners() + app.parallel || process.getMaxListeners());
 }
