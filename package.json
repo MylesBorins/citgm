@@ -14,7 +14,8 @@
     "tap": "TAP_TIMEOUT=90 tap 'test/**/**/test-*.js'",
     "coverage": "npm run tap -- --coverage",
     "coverage-html": "npm run tap -- --coverage --coverage-report=html",
-    "lint": "eslint bin/* lib/ test/"
+    "lint": "eslint bin/* lib/ test/",
+    "broken-spawn-wrap": "tap test/npm/test-npm-test.js --coverage"
   },
   "author": "James M Snell <jasnell@gmail.com> (http://jasnell.me)",
   "repository": {
