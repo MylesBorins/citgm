@@ -66,7 +66,8 @@ const options = {
   timeoutLength: app.timeout,
   tmpDir: app.tmpDir,
   includeTags: app.includeTags || [],
-  excludeTags: app.excludeTags || []
+  excludeTags: app.excludeTags || [],
+  rebuild: app.rebuild
 };
 
 if (options.includeTags.length){
