@@ -51,7 +51,8 @@ var options = {
   npmLevel: app.npmLoglevel,
   timeoutLength: app.timeout,
   sha: app.sha,
-  tmpDir: app.tmpDir
+  tmpDir: app.tmpDir,
+  rebuild: app.rebuild
 };
 
 if (!citgm.windows) {

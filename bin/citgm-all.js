@@ -56,7 +56,8 @@ var options = {
   level: app.verbose,
   npmLevel: app.npmLoglevel,
   timeoutLength: app.timeout,
-  tmpDir: app.tmpDir
+  tmpDir: app.tmpDir,
+  rebuild: app.rebuild
 };
 
 var lookup = getLookup(options);
