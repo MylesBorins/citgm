@@ -108,6 +108,7 @@
   "csv-parser": {
     "prefix": "v",
     "flaky": "win32",
+    "tags": "npm-7",
     "maintainers": "mafintosh"
   },
   "david": {
@@ -116,6 +117,7 @@
     "skip": true
   },
   "debug": {
+    "tags": "npm-7",
     "maintainers": ["qix", "tootallnate"],
     "skip": ["aix", "ppc", "s390", "win32"],
     "scripts": ["test:node", "lint"]
@@ -154,6 +156,7 @@
     "skip": ["aix"]
   },
   "esprima": {
+    "tags": "npm-7",
     "maintainers": "ariya",
     "expectFail": "fips",
     "skip": "win32"
@@ -169,6 +172,7 @@
     "skip": "win32"
   },
   "fastify": {
+    "tags": "npm-7",
     "maintainers": ["mcollina", "delvedor"],
     "prefix": "v"
   },
@@ -252,6 +256,7 @@
   "level": {
     "prefix": "v",
     "flaky": ["aix", "s390"],
+    "tags": "npm-7",
     "maintainers": ["ralphtheninja", "vweevers"],
     "skip": "win32"
   },
@@ -259,7 +264,7 @@
     "prefix": "v",
     "useGitClone": true,
     "flaky": ["ppc", "s390"],
-    "tags": "native",
+    "tags": ["native", "npm-7"],
     "maintainers": ["ralphtheninja", "vweevers"]
   },
   "libxmljs": {
@@ -338,7 +343,8 @@
   },
   "pino": {
     "prefix": "v",
-    "maintainers": "mcollina"
+    "maintainers": "mcollina",
+    "tags": "npm-7"
   },
   "pug": {
     "prefix": "pug@",
@@ -470,6 +476,7 @@
     "prefix": "v",
     "scripts": ["test:node"],
     "skip": ["aix", "win32"],
+    "tags": "npm-7",
     "stripAnsi": true
   },
   "throughv": {
@@ -501,7 +508,8 @@
   "uuid": {
     "prefix": "v",
     "maintainers": ["ctavan", "broofa"],
-    "skip": ["win32", "aix"]
+    "skip": ["win32", "aix"],
+    "tags": "npm-7"
   },
   "vinyl": {
     "prefix": "v",
